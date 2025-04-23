@@ -15,3 +15,5 @@
 *.pem
 
 backend_locale.tf
+
+vpc.tf
