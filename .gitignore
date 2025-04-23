@@ -1,19 +1,19 @@
 #  Local .terraform directories
-**/.terraform/*
+infra/terraform/.terraform/*
 
 # .tfstate files
-*.tfstate
-*.tfstate.*
+infra/terraform/*.tfstate
+infra/terraform/*.tfstate.*
 
 # .tfvars files
-*.tfvars
+infra/terraform/*.tfvars
 
 # .tfplan files
-*.tfplan
+infra/terraform/*.tfplan
 
 # .pem files
-*.pem
+infra/terraform/*.pem
 
-backend_locale.tf
+infra/terraform/backend_locale.tf
 
-vpc.tf
+infra/terraform/vpc.tf
