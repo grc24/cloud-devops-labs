@@ -1,16 +1,18 @@
 terraform {
-  cloud {
-    organization = "your-organization-name"
-
-    workspaces {
-      name = "your-workspace-name"
-    }
-  }
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 5.0"
+    }
+    github = {
+      source  = "integrations/github"
+      version = "~> 5.0"
+    }
+
+    tfe = {
+      source  = "hashicorp/tfe"
+      version = ">=0.45.0"
     }
   }
 }
