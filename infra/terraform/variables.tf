@@ -41,5 +41,5 @@ variable "oauth_name" {
 #   description = "Environment name"
 #   type        = string
 #   default     = "dev"
-  
+
 # }
