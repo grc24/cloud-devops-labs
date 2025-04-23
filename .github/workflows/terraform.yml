@@ -1,14 +1,11 @@
 name: 'Terraform'
 
-
 on:
   push:
     branches:
-      - development  # or any branch name
+      - development
     paths:
       - 'infra/terraform/**'
-      - '.github/workflows/terraform.yml'
-      - '.github/workflows/terraform/**'
       - 'README.md'
 
 env:
@@ -19,50 +16,45 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-    
-    # Set the environment variables for the GitHub Actions runner
+
     env:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
       TFE_ORG: ${{ secrets.TFE_ORG }}
+      TF_WORKDIR: infra/terraform  # <--- reusable working directory path
 
-    # Use the Bash shell regardless whether the GitHub Actions runner is 
-    # ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
         shell: bash
 
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    # Install the preferred version of Terraform CLI 
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      id: init
-      run: terraform init
+      - name: Terraform Init
+        id: init
+        run: terraform init
+        working-directory: ${{ env.TF_WORKDIR }}
 
-    # Run a terraform fmt for push
-    - name: Terraform Format
-      id: fmt
-      run: terraform fmt -check
+      - name: Terraform Format
+        id: fmt
+        run: terraform fmt -check
+        working-directory: ${{ env.TF_WORKDIR }}
 
-    # Run a terraform validate
-    # Run even if formatting fails
-    - name: Terraform Validate
-      id: validate
-      if: (success() || failure())
-      run: terraform validate
+      - name: Terraform Validate
+        id: validate
+        if: (success() || failure())
+        run: terraform validate
+        working-directory: ${{ env.TF_WORKDIR }}
 
-    # Run a terrafrom plan
-    - name: Terraform Plan
-      id: plan
-      run: terraform plan  -var="tfe_token=${{ secrets.TFE_TOKEN }}" -var="gh_pat=${{ secrets.GH_PAT }}" -var="organization=${{ secrets.TFE_ORG }}" -input=false -out=tfplan
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -var="tfe_token=${{ secrets.TFE_TOKEN }}" -var="gh_pat=${{ secrets.GH_PAT }}" -var="organization=${{ secrets.TFE_ORG }}" -input=false -out=tfplan
+        working-directory: ${{ env.TF_WORKDIR }}
 
-    # Run a terraform apply
-    - name: Terraform Apply
-      id: apply
-      run: terraform apply -input=false -auto-approve tfplan
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply -input=false -auto-approve tfplan
+        working-directory: ${{ env.TF_WORKDIR }}
