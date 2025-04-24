@@ -55,7 +55,7 @@ jobs:
         run: terraform plan -var="tfe_token=${{ secrets.TFE_TOKEN }}" -var="gh_pat=${{ secrets.GH_PAT }}" -var="organization=${{ secrets.TFE_ORG }}" -input=false -out=tfplan
         working-directory: ${{ env.TF_WORKDIR }}
 
-      - name: Terraform Apply
-        id: apply
-        run: terraform apply -var="tfe_token=${{ secrets.TFE_TOKEN }}" -var="gh_pat=${{ secrets.GH_PAT }}" -input=false -auto-approve tfplan
-        working-directory: ${{ env.TF_WORKDIR }}
+      # - name: Terraform Apply
+      #   id: apply
+      #   run: terraform apply -var="tfe_token=${{ secrets.TFE_TOKEN }}" -var="gh_pat=${{ secrets.GH_PAT }}" -input=false -auto-approve tfplan
+      #   working-directory: ${{ env.TF_WORKDIR }}
