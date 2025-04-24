@@ -35,6 +35,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2
 
       - name: Terraform login (non-interactive)
+        id: login
         env:
           TERRAFORM_TOKEN: ${{ secrets.TFE_TOKEN }}
         run: |
