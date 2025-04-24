@@ -1,5 +1,12 @@
 terraform {
+  cloud {
+    organization = "aws_david_20"
+    workspaces {
+      name = "app-vpc"
+    }
+    
 
+  }
   required_providers {
     github = {
       source  = "integrations/github"
