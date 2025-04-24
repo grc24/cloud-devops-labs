@@ -13,6 +13,7 @@ variable "gh_pat" {
 variable "organization" {
   description = "name of the TFE organization"
   type        = string
+  default = "aws_david_20"
 }
 
 variable "oauth_name" {
