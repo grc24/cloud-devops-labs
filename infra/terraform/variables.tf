@@ -1,13 +1,13 @@
 variable "tfe_token" {
   description = "value of the TFE token"
   type        = string
-  sensitive = true
+  sensitive   = true
 }
 
 variable "gh_pat" {
   description = "value of the GitHub PAT"
   type        = string
-  sensitive = true
+  sensitive   = true
 }
 
 variable "organization" {
@@ -22,9 +22,9 @@ variable "oauth_name" {
 }
 
 variable "workspaces_name" {
-  default = "app-vpc"
+  default     = "app-vpc"
   description = "workspace eks"
-  type = string
+  type        = string
 }
 
 # variable "private_subnets" {

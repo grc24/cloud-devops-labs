@@ -4,7 +4,7 @@ terraform {
     workspaces {
       name = "app-vpc"
     }
-    
+
 
   }
   required_providers {
